@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+
+  <h3>{% trans "Website ratings" %}</h3>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">{% trans "Source name" %}</th>
+        <th scope="col">{% trans "Visitors" %}</th>
+        <th scope="col">{% trans "Views" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td><a href="https://www.{{row.website.url}}" target="_blank">{{row.website.name}}</a></td>
+        <td>{{row.unique_visitors}}</td>
+        <td>{{row.visitors}}</td>
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table>
+
+  {% if rows.has_other_pages %}
+  <div class="row">
+    <div class="col-md-12">
+        <ul class="pagination">
+            {% if rows.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo;&laquo;</a>
+                </li>
+               
+            {% endif %}
+
+            {% for i in rows.paginator.page_range %}
+                {% if i >= rows.number|add:"-2" and i <= rows.number|add:"2" %}
+                    <li class="page-item {% if i == rows.number %}active{% endif %}">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
+
+  {% endif %}
+
+
+
+
+
+{% endblock content %}

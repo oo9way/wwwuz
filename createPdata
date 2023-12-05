@@ -1,0 +1,14 @@
+import random
+from datetime import datetime
+from app.models import Website, Data
+
+today = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
+websites = Website.objects.all()
+
+for i in range(0, 100000):
+    r1 = random.randint(1000, 100000)
+    r2 = random.randint(1000, 100000)
+    Data.objects.create(website=websites[i], visitors=r1, unique_visitors=r2)
+
+
+

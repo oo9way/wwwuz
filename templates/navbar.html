@@ -1,0 +1,44 @@
+{% load i18n %}
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container">
+    <a class="navbar-brand" href="{% url "app:home" %}">www.uz</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url "app:home" %}">{% trans "Website ratings" %}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://uforum.uz/showthread.php?p=1031113">Forum</a>
+        </li>
+      </ul>
+      <form class="d-flex gap-3" role="search">
+        {% if request.user.is_authenticated %}
+        <a class="btn btn-success" href="{% url "dashboard:home" %}">{% trans "Dashboard" %}</a>
+        <a class="btn btn-danger" href="{% url "users:sign-out" %}">{% trans "Sign out" %}</a>
+
+        {% else %}
+        <a class="btn btn-danger" href="{% url "users:sign-up" %}">{% trans "Register" %}</a>
+        <a class="btn btn-success" href="{% url "users:sign-in" %}">{% trans "Sign in" %}</a>
+        {% endif %}
+      </form>
+
+
+      <form action="{% url "set_language" %}" method="post">
+        {% csrf_token %}
+        <select name="language"> 
+          {% get_available_languages as languages %}
+          {% for lang in languages %}
+            <option value="{{ lang.0 }}">{{ lang.1 }}</option>
+          {% endfor %}
+        </select>
+        <input type="submit" value="Switch Language"/>
+      </form>
+
+      
+    </div>
+  </div>
+</nav>

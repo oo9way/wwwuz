@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}         
+{% load i18n %}
+
+{% block content %} 
+
+<h3><a href="https://www.{{website.url}}">{{website.name}}</a> - {{website.category.title}}</h3>
+<hr>
+<pre>Joined {{website.created_at}}</pre>
+	<form method="POST">
+		{% csrf_token %}
+		{{ form|crispy }}                    
+		<button class="btn btn-primary mt-3" type="submit">{% trans "Save" %}</button>
+	</form>
+
+{% endblock %}

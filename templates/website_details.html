@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+  
+{% block content %}
+
+
+  <h3><a href="https://www.{{website.url}}">{{website.name}}</a> - {{website.category.title}}</h3>
+  <hr>
+  <pre>{% trans "Joined" %} {{website.created_at}}</pre>
+  <p>
+    {{website.description}} <br><br>
+    <b>API KEY </b> <code>{{website.api_key}}</code>
+  </p>
+
+  <hr>
+
+  <div>{% trans "Write down this script in your website to calculate website statistics" %}</div>
+  
+  <br>
+  <b>{% trans "JavaScript scripts" %}</b> {% trans "- write down in head section" %}
+  <pre>
+    {% filter force_escape %}    
+    <script src="www.uz/api/stats/<{% trans "YOUR WEBSITE API KEY" %}>"></script>
+    {% endfilter %}
+  </pre>
+
+
+{% endblock content %}
