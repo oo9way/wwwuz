@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from app.models import Website, Visitor, Data
 from datetime import datetime
 from rest_framework.generics import ListAPIView
-from api.serializers import WebsiteSerializer
+from api.serializers import WebsiteSerializer, DataSerializer
 from django.utils.translation import gettext as _
 
 @api_view(['POST'])
@@ -46,3 +46,7 @@ def add_count(request):
 class WebsiteListAPIView(ListAPIView):
     queryset = Website.objects.select_related('owner', 'category')
     serializer_class = WebsiteSerializer
+
+class DataListAPIView(ListAPIView):
+    queryset = Data.objects.select_related('owner', 'category')
+    serializer_class = DataSerializer
